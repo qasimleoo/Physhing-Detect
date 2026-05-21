@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Education & Awareness - PhishGuard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/education.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- PAGE HEADER -->
+    <section class="page-header" data-aos="fade-down">
+        <div class="page-badge">
+            <i class="fas fa-graduation-cap"></i> Education & Awareness
+        </div>
+        <h1>Learn About <span class="gradient-text">Phishing</span></h1>
+        <p>Protect yourself by understanding how phishing attacks work</p>
+    </section>
+
+    <div class="container">
+
+        <!-- SECTION 1: WHAT IS PHISHING -->
+        <section class="section" data-aos="fade-up">
+            <div class="section-label">
+                <i class="fas fa-info-circle"></i> Basics
+            </div>
+            <h2>What is Phishing?</h2>
+            <p class="center-text">
+                Phishing is a cyber attack where attackers trick users into giving sensitive 
+                information like passwords, credit card details, or personal data by pretending 
+                to be a trusted source.
+            </p>
+
+            <div class="image-box" data-aos="zoom-in">
+                <div class="image-frame">
+                    <img src="{{ url_for('static', filename='images/phishing image 2.webp') }}" 
+                         alt="Phishing Example">
+                    <!-- <div class="image-overlay">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Real Phishing Example</span>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TYPES -->
+        <section class="section" data-aos="fade-up">
+            <div class="section-label">
+                <i class="fas fa-list"></i> Types
+            </div>
+            <h2>Types of Phishing</h2>
+
+            <div class="cards">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Phishing</h3>
+                    <p>Fake emails pretending to be from trusted companies like banks or services.</p>
+                    <div class="card-tag danger">Most Common</div>
+                </div>
+
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>URL Phishing</h3>
+                    <p>Fake websites designed to steal your login credentials and personal data.</p>
+                    <div class="card-tag warning">High Risk</div>
+                </div>
+
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-sms"></i>
+                    </div>
+                    <h3>Smishing</h3>
+                    <p>Phishing attacks delivered through SMS text messages on your phone.</p>
+                    <div class="card-tag warning">Growing</div>
+                </div>
+
+                <div class="card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Vishing</h3>
+                    <p>Voice call scams pretending to be officials from banks or government.</p>
+                    <div class="card-tag danger">Dangerous</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: HOW TO IDENTIFY -->
+        <section class="section" data-aos="fade-up">
+            <div class="section-label">
+                <i class="fas fa-search"></i> Identification
+            </div>
+            <h2>How to Identify Phishing</h2>
+
+            <ul class="checklist">
+                <li data-aos="fade-right" data-aos-delay="100">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="check-content">
+                        <h4>Check Sender Address</h4>
+                        <p>Look carefully at the sender's email domain for any misspellings</p>
+                    </div>
+                </li>
+                <li data-aos="fade-right" data-aos-delay="200">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="check-content">
+                        <h4>Hover Over Links</h4>
+                        <p>Always hover over links before clicking to see the actual URL</p>
+                    </div>
+                </li>
+                <li data-aos="fade-right" data-aos-delay="300">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="check-content">
+                        <h4>Urgency Language</h4>
+                        <p>Be suspicious of emails creating urgency or threatening consequences</p>
+                    </div>
+                </li>
+                <li data-aos="fade-right" data-aos-delay="400">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="check-content">
+                        <h4>Grammar Mistakes</h4>
+                        <p>Poor spelling and grammar are common signs of phishing emails</p>
+                    </div>
+                </li>
+                <li data-aos="fade-right" data-aos-delay="500">
+                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                    <div class="check-content">
+                        <h4>Never Share Passwords</h4>
+                        <p>Legitimate companies will never ask for your password via email</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SECTION 4: QUIZ -->
+        <section class="section" data-aos="zoom-in">
+            <div class="section-label">
+                <i class="fas fa-question-circle"></i> Test Yourself
+            </div>
+            <h2>Phishing Detection Quiz</h2>
+
+            <div class="quiz-box">
+                <!-- PROGRESS -->
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">1/5</span>
+                </div>
+
+                <!-- SCORE -->
+                <div class="score-display">
+                    <i class="fas fa-star"></i>
+                    Score: <span id="scoreDisplay">0</span>
+                </div>
+
+                <!-- QUESTION -->
+                <div class="question-card">
+                    <div class="question-icon">
+                        <i class="fas fa-question"></i>
+                    </div>
+                    <p id="question"></p>
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="quiz-buttons">
+                    <button class="quiz-btn phishing-btn" onclick="answer('phishing')">
+                        <i class="fas fa-skull-crossbones"></i>
+                        Phishing
+                    </button>
+                    <button class="quiz-btn legit-btn" onclick="answer('legit')">
+                        <i class="fas fa-shield-alt"></i>
+                        Legitimate
+                    </button>
+                </div>
+
+                <!-- FEEDBACK -->
+                <div id="feedbackBox" class="feedback-box">
+                    <p id="feedback"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: STATS -->
+        <section class="section stats-section" data-aos="fade-up">
+            <div class="section-label">
+                <i class="fas fa-chart-bar"></i> Statistics
+            </div>
+            <h2>Phishing Statistics</h2>
+
+            <div class="stats">
+                <div class="stat" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h2>91%</h2>
+                    <p>Attacks start with phishing</p>
+                </div>
+
+                <div class="stat" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h2>3.4B</h2>
+                    <p>Phishing emails sent daily</p>
+                </div>
+
+                <div class="stat" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h2>$17K</h2>
+                    <p>Lost per minute to phishing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: TIPS -->
+        <section class="section" data-aos="fade-up">
+            <div class="section-label">
+                <i class="fas fa-lightbulb"></i> Pro Tips
+            </div>
+            <h2>Stay Protected</h2>
+
+            <div class="tips-grid">
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-lock"></i>
+                    <h4>Use 2FA</h4>
+                    <p>Always enable two-factor authentication on all accounts</p>
+                </div>
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-sync-alt"></i>
+                    <h4>Update Regularly</h4>
+                    <p>Keep your software and antivirus updated at all times</p>
+                </div>
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-eye"></i>
+                    <h4>Stay Alert</h4>
+                    <p>Always verify before clicking any suspicious link or email</p>
+                </div>
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-shield-virus"></i>
+                    <h4>Use PhishGuard</h4>
+                    <p>Scan suspicious URLs and emails with our AI-powered tool</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/education.js') }}"></script>
+
+</body>
+</html>

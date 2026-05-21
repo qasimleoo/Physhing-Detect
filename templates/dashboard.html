@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - PhishGuard</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- TOP BAR -->
+    <div class="topbar" data-aos="fade-down">
+        <div class="welcome-section">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div>
+                <p class="welcome-text">Welcome back,</p>
+                <h2>{{ username }}</h2>
+            </div>
+        </div>
+        <a href="/logout" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <!-- PAGE TITLE -->
+    <div class="dashboard-header" data-aos="fade-up">
+        <div class="page-badge">
+            <i class="fas fa-chart-line"></i> Dashboard
+        </div>
+        <h1>Your <span class="gradient-text">Security</span> Overview</h1>
+        <p>Real-time monitoring of your phishing detection activity</p>
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <div class="cards">
+        <div class="card total" data-aos="zoom-in" data-aos-delay="100">
+            <div class="card-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>Total Scans</h3>
+            <h1 data-count="{{ total_scans }}">0</h1>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="card phishing" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Phishing Found</h3>
+            <h1 data-count="{{ phishing }}">0</h1>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="card safe" data-aos="zoom-in" data-aos-delay="300">
+            <div class="card-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Safe Results</h3>
+            <h1 data-count="{{ safe }}">0</h1>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="card suspicious" data-aos="zoom-in" data-aos-delay="400">
+            <div class="card-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h3>Suspicious</h3>
+            <h1 data-count="{{ suspicious }}">0</h1>
+            <div class="card-glow"></div>
+        </div>
+    </div>
+
+    <!-- THREAT LEVEL -->
+    <div class="progress-section" data-aos="fade-up">
+        <div class="progress-card">
+            <div class="progress-header">
+                <div>
+                    <h3><i class="fas fa-chart-bar"></i> Weekly Threat Activity</h3>
+                    <p>Detection level over the past 7 days</p>
+                </div>
+                <div class="threat-level">
+                    <span class="level-text">Threat Level</span>
+                    <span class="level-value high">HIGH</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="fill"></div>
+            </div>
+            <div class="progress-labels">
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
+                <span>Critical</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECENT ACTIVITY -->
+    <div class="table-section" data-aos="fade-up">
+        <div class="table-card">
+            <div class="table-header">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <div class="auto-refresh">
+                    <i class="fas fa-sync-alt spinning"></i>
+                    Auto-refresh: 30s
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Type</th>
+                            <th>Input</th>
+                            <th>Result</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[1] }}</td>
+                            <td>
+                                <span class="type-badge">
+                                    {% if log[2] == 'url' %}
+                                        <i class="fas fa-link"></i>
+                                    {% else %}
+                                        <i class="fas fa-envelope"></i>
+                                    {% endif %}
+                                    {{ log[2] }}
+                                </span>
+                            </td>
+                            <td class="input-cell">{{ log[3] }}</td>
+                            <td>{{ log[4] }}</td>
+                            <td>{{ log[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="actions" data-aos="fade-up">
+        <h3 class="actions-title">Quick Actions</h3>
+        <div class="actions-grid">
+            <a href="/url_checker" class="action-btn">
+                <i class="fas fa-link"></i>
+                <span>Check New URL</span>
+            </a>
+            <a href="/email-scanner" class="action-btn">
+                <i class="fas fa-envelope"></i>
+                <span>Scan New Email</span>
+            </a>
+            <a href="/report" class="action-btn">
+                <i class="fas fa-chart-pie"></i>
+                <span>View Report</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

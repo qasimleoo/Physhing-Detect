@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account - PhishGuard</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- LOGIN CONTAINER -->
+    <div class="login-container">
+
+        <!-- LEFT SIDE - INFO -->
+        <div class="login-info" data-aos="fade-right">
+            <div class="info-badge">
+                <i class="fas fa-user-plus"></i> Join PhishGuard
+            </div>
+            <h1>Create Your <span class="gradient-text">Secure</span> Account</h1>
+            <p>Sign up to access AI-powered phishing protection and keep your banking safe</p>
+
+            <div class="info-features">
+                <div class="info-feature">
+                    <i class="fas fa-rocket"></i>
+                    <div>
+                        <h4>Quick Registration</h4>
+                        <p>Create account in seconds</p>
+                    </div>
+                </div>
+                <div class="info-feature">
+                    <i class="fas fa-gift"></i>
+                    <div>
+                        <h4>100% Free Forever</h4>
+                        <p>No hidden charges</p>
+                    </div>
+                </div>
+                <div class="info-feature">
+                    <i class="fas fa-shield-virus"></i>
+                    <div>
+                        <h4>Real-time Protection</h4>
+                        <p>AI scans 24/7 for threats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE - REGISTER FORM -->
+        <div class="login-box" data-aos="fade-left">
+
+            <div class="login-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+
+            <h2>Create Account</h2>
+            <p class="login-subtitle">Fill in your details to get started</p>
+
+            <!-- ERROR MESSAGE -->
+            {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- SUCCESS MESSAGE -->
+            {% if success %}
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                {{ success }}
+            </div>
+            {% endif %}
+
+            <!-- FORM -->
+            <form method="POST" action="/register" id="registerForm">
+
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" 
+                           name="username" 
+                           id="usernameField"
+                           placeholder="Username" 
+                           required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" 
+                           name="email" 
+                           id="emailField"
+                           placeholder="Email Address" 
+                           required>
+                </div>
+
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" 
+                           name="password" 
+                           id="passwordField"
+                           placeholder="Password" 
+                           required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+                </div>
+
+                <!-- PASSWORD STRENGTH -->
+                <div class="password-strength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <span class="strength-text" id="strengthText">Password strength</span>
+                </div>
+
+                <!-- TERMS CHECKBOX -->
+                <label class="remember-me terms-check">
+                    <input type="checkbox" required>
+                    <span class="checkmark"></span>
+                    I agree to the <a href="#" class="forgot-link">Terms & Conditions</a>
+                </label>
+
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </span>
+                </button>
+
+            </form>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <p class="register-text">
+                Already have an account? 
+                <a href="/login">Login here</a>
+            </p>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SSL Secured</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit Encrypted</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <script>
+        // ==================== AOS INIT ====================
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true });
+        }
+
+        // ==================== TOGGLE PASSWORD ====================
+        function togglePassword() {
+            const passwordField = document.getElementById("passwordField");
+            const toggleIcon = document.querySelector(".toggle-password");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+
+        // ==================== PASSWORD STRENGTH ====================
+        const passwordInput = document.getElementById("passwordField");
+        const strengthFill = document.getElementById("strengthFill");
+        const strengthText = document.getElementById("strengthText");
+
+        if (passwordInput) {
+            passwordInput.addEventListener("input", function() {
+                const pass = this.value;
+                let strength = 0;
+
+                if (pass.length >= 6) strength += 25;
+                if (pass.length >= 10) strength += 25;
+                if (/[A-Z]/.test(pass) && /[a-z]/.test(pass)) strength += 25;
+                if (/\d/.test(pass) && /[!@#$%^&*]/.test(pass)) strength += 25;
+
+                strengthFill.style.width = strength + "%";
+
+                if (strength <= 25) {
+                    strengthFill.style.background = "#ff6b6b";
+                    strengthText.innerText = "Weak";
+                    strengthText.style.color = "#ff6b6b";
+                } else if (strength <= 50) {
+                    strengthFill.style.background = "#fdcb6e";
+                    strengthText.innerText = "Fair";
+                    strengthText.style.color = "#fdcb6e";
+                } else if (strength <= 75) {
+                    strengthFill.style.background = "#00d4ff";
+                    strengthText.innerText = "Good";
+                    strengthText.style.color = "#00d4ff";
+                } else {
+                    strengthFill.style.background = "#00b894";
+                    strengthText.innerText = "Strong";
+                    strengthText.style.color = "#00b894";
+                }
+            });
+        }
+
+        // ==================== FORM VALIDATION ====================
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            const username = document.getElementById("usernameField").value.trim();
+            const email = document.getElementById("emailField").value.trim();
+            const password = document.getElementById("passwordField").value.trim();
+
+            if (username === "" || email === "" || password === "") {
+                e.preventDefault();
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            if (username.length < 3) {
+                e.preventDefault();
+                alert("Username must be at least 3 characters!");
+                return;
+            }
+
+            if (!email.includes("@") || !email.includes(".")) {
+                e.preventDefault();
+                alert("Please enter a valid email address!");
+                return;
+            }
+
+            if (password.length < 6) {
+                e.preventDefault();
+                alert("Password must be at least 6 characters!");
+                return;
+            }
+        });
+
+        // ==================== PARTICLES.JS ====================
+        if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 }},
+                    color: { value: '#00d4ff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#00d4ff',
+                        opacity: 0.3,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: 'none',
+                        random: true,
+                        out_mode: 'out'
+                    }
+                },
+                interactivity: {
+                    detect_on: 'window',
+                    events: { onhover: { enable: true, mode: 'grab' }},
+                    modes: { grab: { distance: 150, line_linked: { opacity: 0.6 }}}
+                },
+                retina_detect: true
+            });
+        }
+
+        // ==================== CUSTOM CURSOR ====================
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+
+        if (cursorDot && cursorRing) {
+            let mouseX = 0, mouseY = 0;
+            let dotX = 0, dotY = 0;
+            let ringX = 0, ringY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                dotX += (mouseX - dotX) * 0.9;
+                dotY += (mouseY - dotY) * 0.9;
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+                cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            const hoverElements = document.querySelectorAll(
+                'a, button, input, .info-feature, .trust-badge, .nav-links li, .toggle-password'
+            );
+
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorRing.classList.add('hover');
+                    cursorDot.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorRing.classList.remove('hover');
+                    cursorDot.classList.remove('hover');
+                });
+            });
+
+            document.addEventListener('mousedown', () => cursorRing.classList.add('click'));
+            document.addEventListener('mouseup', () => cursorRing.classList.remove('click'));
+        }
+
+        // ==================== NAVBAR ACTIVE LINK ====================
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

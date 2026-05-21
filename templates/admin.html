@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - PhishGuard</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- HEADER -->
+    <div class="admin-header" data-aos="fade-down">
+        <div class="header-badge">
+            <i class="fas fa-user-shield"></i> Administrator Panel
+        </div>
+        <h1>Admin <span class="gradient-text">Control</span> Center</h1>
+        <p>Manage users, monitor activity, and configure system settings</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats" data-aos="fade-up">
+        <div class="card users">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Total Users</h3>
+            <p data-count="{{ users }}">{{ users }}</p>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="card scans">
+            <div class="card-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>Total Scans</h3>
+            <p data-count="{{ scans }}">{{ scans }}</p>
+            <div class="card-glow"></div>
+        </div>
+
+        <div class="card threats">
+            <div class="card-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Threats</h3>
+            <p data-count="{{ threats }}">{{ threats }}</p>
+            <div class="card-glow"></div>
+        </div>
+    </div>
+
+    <!-- LOG TABLE SECTION -->
+    <div class="table-section" data-aos="fade-up">
+        <div class="table-card">
+            <div class="table-header">
+                <h3><i class="fas fa-history"></i> Activity Logs</h3>
+                
+                <div class="search">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" onkeyup="searchTable()" id="search" placeholder="Search logs...">
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table id="logTable">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user"></i> User</th>
+                            <th><i class="fas fa-tag"></i> Type</th>
+                            <th><i class="fas fa-keyboard"></i> Input</th>
+                            <th><i class="fas fa-shield-alt"></i> Result</th>
+                            <th><i class="fas fa-calendar"></i> Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log[1] }}</td>
+                            <td>
+                                <span class="type-badge">
+                                    {% if log[2] == 'url' %}
+                                        <i class="fas fa-link"></i>
+                                    {% else %}
+                                        <i class="fas fa-envelope"></i>
+                                    {% endif %}
+                                    {{ log[2] }}
+                                </span>
+                            </td>
+                            <td class="input-cell">{{ log[3] }}</td>
+                            <td>{{ log[4] }}</td>
+                            <td>{{ log[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMS -->
+    <div class="forms">
+
+        <div class="box" data-aos="fade-right">
+            <div class="box-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <h3>Add Phishing Keyword</h3>
+            <p class="box-subtitle">Add suspicious keywords to detection database</p>
+            
+            <form action="/add-keyword" method="POST" id="keywordForm">
+                <div class="input-wrapper">
+                    <i class="fas fa-tag input-icon"></i>
+                    <input type="text" name="keyword" placeholder="Enter keyword" required>
+                </div>
+                
+                <div class="input-wrapper">
+                    <i class="fas fa-list input-icon"></i>
+                    <select name="category" required>
+                        <option value="Phishing">Phishing</option>
+                        <option value="Spam">Spam</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="add-btn">
+                    <i class="fas fa-plus-circle"></i> Add Keyword
+                </button>
+            </form>
+        </div>
+
+        <div class="box" data-aos="fade-left">
+            <div class="box-icon">
+                <i class="fas fa-ban"></i>
+            </div>
+            <h3>Add Blacklist URL</h3>
+            <p class="box-subtitle">Block malicious URLs from being accessed</p>
+            
+            <form action="/add-url" method="POST" id="urlForm">
+                <div class="input-wrapper">
+                    <i class="fas fa-link input-icon"></i>
+                    <input type="text" name="url" placeholder="https://example.com" required>
+                </div>
+                
+                <button type="submit" class="add-btn danger">
+                    <i class="fas fa-shield-virus"></i> Add to Blacklist
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+
+</body>
+</html>

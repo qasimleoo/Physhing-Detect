@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ==================== NAVBAR FIXED ==================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background: rgba(10, 25, 47, 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    z-index: 99999;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    overflow: hidden;           /* kuch bhi bahar na jaye */
+}
+
+/* ==================== LOGO ==================== */
+.navbar .logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #00d4ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    flex-shrink: 0;             /* logo kabhi shrink na ho */
+    /* Reset any page CSS overrides */
+    text-align: left;
+    background: none;
+    -webkit-text-fill-color: #00d4ff;
+}
+
+/* ==================== NAV LINKS ==================== */
+.navbar .nav-links {
+    list-style: none !important;
+    display: flex !important;
+    align-items: center;
+    gap: 25px;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    background: none !important;
+    flex-shrink: 0;             /* links shrink na ho */
+    white-space: nowrap;        /* wrap na ho */
+}
+
+.navbar .nav-links li {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    list-style: none !important;
+}
+
+.navbar .nav-links li a {
+    font-family: 'Poppins', sans-serif;
+    color: #8892b0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+    white-space: nowrap;
+}
+
+.navbar .nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00d4ff;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.navbar .nav-links li a:hover {
+    color: #00d4ff;
+}
+
+.navbar .nav-links li a:hover::after {
+    width: 100%;
+}
+
+.navbar .nav-links li a.active {
+    color: #00d4ff;
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.navbar .nav-links li a.active::after {
+    width: 100%;
+}
+
+/* ==================== SPACER ==================== */
+.nav-spacer {
+    height: 70px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* ==================== SCROLLBAR FIX ==================== */
+/* Yeh ensure karta hai scrollbar aane se navbar shift na ho */
+html {
+    overflow-y: scroll;         /* hamesha scrollbar dikhao */
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1100px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .navbar .nav-links {
+        gap: 15px;
+    }
+
+    .navbar .nav-links li a {
+        font-size: 13px;
+    }
+
+    .navbar .logo {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 850px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+        gap: 10px;
+    }
+
+    .navbar .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        white-space: normal;
+    }
+
+    .nav-spacer {
+        height: 120px;
+    }
+}

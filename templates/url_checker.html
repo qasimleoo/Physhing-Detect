@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Phishing Checker - PhishGuard</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/url.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- PAGE HEADER -->
+    <section class="page-header" data-aos="fade-down">
+        <div class="page-badge">
+            <i class="fas fa-link"></i> URL Scanner
+        </div>
+        <h1>Check <span class="gradient-text">Suspicious</span> URLs</h1>
+        <p>Paste any URL and our AI will analyze it for phishing threats in real-time</p>
+    </section>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container" data-aos="fade-up">
+
+        <!-- SCANNER CARD -->
+        <div class="scanner-card">
+            <div class="scanner-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <form action="/check-url" method="POST" id="urlForm">
+                <div class="input-wrapper">
+                    <i class="fas fa-globe input-icon"></i>
+                    <input 
+                        type="text" 
+                        name="url" 
+                        id="urlInput"
+                        placeholder=""
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <button type="submit" id="checkBtn" class="scan-btn">
+                    <span class="btn-text">
+                        <i class="fas fa-shield-alt"></i> Scan URL
+                    </span>
+                </button>
+            </form>
+
+            <!-- LOADING SPINNER -->
+            <div id="spinner" class="spinner-container">
+                <div class="cyber-loader">
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <div class="loader-core">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </div>
+                <p class="scan-text">
+                    <span>A</span><span>n</span><span>a</span><span>l</span><span>y</span><span>z</span><span>i</span><span>n</span><span>g</span>
+                    <span>&nbsp;</span>
+                    <span>U</span><span>R</span><span>L</span>
+                    <span>.</span><span>.</span><span>.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- RESULT BOX -->
+        {% if result %}
+        <div class="result-box {{ result }}" data-aos="zoom-in">
+            
+            <div class="result-header">
+                <div class="result-icon-big">
+                    {% if result == 'safe' %}
+                        <i class="fas fa-check-circle"></i>
+                    {% elif result == 'phishing' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                    {% else %}
+                        <i class="fas fa-question-circle"></i>
+                    {% endif %}
+                </div>
+                <div class="result-title">
+                    <h2>Status: 
+                        <span class="badge {{ result }}">
+                            {{ result | upper }}
+                        </span>
+                    </h2>
+                    <p class="result-subtitle">
+                        {% if result == 'safe' %}
+                            This URL appears to be safe to visit
+                        {% elif result == 'phishing' %}
+                            Warning! This URL shows phishing characteristics
+                        {% else %}
+                            This URL has some suspicious indicators
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- CONFIDENCE METER -->
+            <div class="confidence-section">
+                <div class="confidence-label">
+                    <span>Confidence Score</span>
+                    <span class="confidence-value">{{ confidence }}%</span>
+                </div>
+                <div class="confidence-bar">
+                    <div class="confidence-fill {{ result }}" 
+                         style="width: {{ confidence }}%"></div>
+                </div>
+            </div>
+
+            <!-- REASONS -->
+            <div class="reasons-section">
+                <h4><i class="fas fa-list-ul"></i> Analysis Details</h4>
+                <ul class="reasons-list">
+                    {% for r in reasons %}
+                        <li>
+                            <i class="fas fa-angle-right"></i>
+                            {{ r }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+        {% endif %}
+
+        <!-- INFO CARDS -->
+        <div class="info-cards" data-aos="fade-up">
+            <div class="info-card">
+                <i class="fas fa-bolt"></i>
+                <h4>Instant Scan</h4>
+                <p>Get results in milliseconds</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-brain"></i>
+                <h4>AI Powered</h4>
+                <p>Machine learning analysis</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-lock"></i>
+                <h4>100% Secure</h4>
+                <p>Your data stays private</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/urlChecker.js') }}"></script>
+
+</body>
+</html>

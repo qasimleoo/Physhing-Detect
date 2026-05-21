@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports & Analytics - PhishGuard</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- PARTICLES -->
+    <div id="particles-js"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <!-- PAGE HEADER -->
+    <section class="page-header" data-aos="fade-down">
+        <div class="page-badge">
+            <i class="fas fa-chart-pie"></i> Reports & Analytics
+        </div>
+        <h1>Detailed <span class="gradient-text">Insights</span> Dashboard</h1>
+        <p>Visualize your phishing detection statistics and analyze trends</p>
+    </section>
+
+    <div class="container">
+
+        <!-- STATS CARDS -->
+        <div class="cards" data-aos="fade-up">
+            <div class="card total">
+                <div class="card-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 id="totalScans">0</h3>
+                <p>Total Scans</p>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="card phishing">
+                <div class="card-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 id="totalPhishing">0</h3>
+                <p>Phishing</p>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="card safe">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 id="totalSafe">0</h3>
+                <p>Safe</p>
+                <div class="card-glow"></div>
+            </div>
+
+            <div class="card suspicious">
+                <div class="card-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 id="totalSuspicious">0</h3>
+                <p>Suspicious</p>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+
+        <!-- CHARTS GRID -->
+        <div class="charts-grid">
+
+            <!-- PIE CHART -->
+            <div class="chart-card" data-aos="fade-right">
+                <div class="chart-header">
+                    <div>
+                        <h3><i class="fas fa-chart-pie"></i> Scan Results Distribution</h3>
+                        <p>Overview of all detection results</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- BAR CHART -->
+            <div class="chart-card" data-aos="fade-left">
+                <div class="chart-header">
+                    <div>
+                        <h3><i class="fas fa-chart-bar"></i> Last 7 Days Activity</h3>
+                        <p>Daily scan count breakdown</p>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PATTERNS SECTION -->
+        <div class="patterns-card" data-aos="fade-up">
+            <div class="patterns-header">
+                <h3><i class="fas fa-chart-line"></i> Detection Patterns</h3>
+                <p>Common patterns identified in scans</p>
+            </div>
+            <ul id="patternsList"></ul>
+        </div>
+
+        <!-- EXPORT BUTTON -->
+        <div class="export-section" data-aos="zoom-in">
+            <button onclick="exportReport()" class="export-btn">
+                <i class="fas fa-download"></i>
+                <span>Export Report</span>
+            </button>
+            <p class="export-note">
+                <i class="fas fa-info-circle"></i>
+                Download a detailed text report of your statistics
+            </p>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/report.js') }}"></script>
+
+</body>
+</html>

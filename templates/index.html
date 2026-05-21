@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PhishGuard - Phishing Detection</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    {% include 'navbar.html' %}
+
+    <div id="warningBanner" style="text-align:center; padding:10px; color:white; font-weight:bold;"></div>
+    <div id="sslBox" style="text-align:center; padding:5px; font-weight:bold;"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-down">
+            <div class="hero-badge">
+                <i class="fas fa-shield-alt"></i> AI-Powered Security
+            </div>
+            <h1>Protect Your Banking<br>From <span id="typedHero"></span></h1>
+            <p>Our AI system detects phishing URLs and emails instantly to keep your financial data safe.</p>
+            <div class="hero-buttons">
+                <a href="/url_checker" class="btn"><i class="fas fa-link"></i> Try URL Checker</a>
+                <a href="/email-scanner" class="btn secondary"><i class="fas fa-envelope"></i> Scan Email</a>
+            </div>
+            <div class="trust-row">
+                <div class="trust-item"><i class="fas fa-check-circle"></i> Real-time Detection</div>
+                <div class="trust-item"><i class="fas fa-check-circle"></i> ML Powered</div>
+                <div class="trust-item"><i class="fas fa-check-circle"></i> Bank Grade Security</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <div class="section-label" data-aos="fade-up">How It Works</div>
+        <h2 data-aos="fade-up">Three Simple Steps</h2>
+        <div class="cards">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Paste URL</h3>
+                <p>Enter any suspicious link and our AI analyzes it instantly.</p>
+                <div class="card-step">01</div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Scan Email</h3>
+                <p>Paste email content and detect phishing patterns with ML.</p>
+                <div class="card-step">02</div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Get Result</h3>
+                <p>Receive instant results with detailed risk level analysis.</p>
+                <div class="card-step">03</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="stat-box" data-aos="zoom-in">
+            <div class="stat-icon"><i class="fas fa-bug"></i></div>
+            <h2 id="statScans">0</h2>
+            <p>Phishing URLs Detected</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box" data-aos="zoom-in" data-aos-delay="200">
+            <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+            <h2 id="statAccuracy">0</h2>
+            <p>Accuracy Rate</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box" data-aos="zoom-in" data-aos-delay="300">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <h2 id="statUsers">0</h2>
+            <p>Users Protected</p>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="section-label" data-aos="fade-up">Why PhishGuard</div>
+        <h2 data-aos="fade-up">Built For Your Protection</h2>
+        <div class="features-grid">
+            <div class="feature-item" data-aos="fade-right">
+                <i class="fas fa-robot"></i>
+                <div>
+                    <h4>AI & Machine Learning</h4>
+                    <p>Trained on thousands of real phishing attacks</p>
+                </div>
+            </div>
+            <div class="feature-item" data-aos="fade-right" data-aos-delay="200">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h4>Real-time Analysis</h4>
+                    <p>Results in milliseconds, not minutes</p>
+                </div>
+            </div>
+            <div class="feature-item" data-aos="fade-left">
+                <i class="fas fa-lock"></i>
+                <div>
+                    <h4>Bank Grade Security</h4>
+                    <p>Enterprise level phishing protection</p>
+                </div>
+            </div>
+            <div class="feature-item" data-aos="fade-left" data-aos-delay="200">
+                <i class="fas fa-chart-line"></i>
+                <div>
+                    <h4>Detailed Reports</h4>
+                    <p>Full analytics and scan history</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">
+            <i class="fas fa-shield-alt"></i> PhishGuard
+        </div>
+        <p class="footer-tagline">Protecting your digital banking experience</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="/education">Education</a>
+            <a href="/report">Reports</a>
+        </div>
+        <p class="footer-copy">© 2025 PhishGuard. All rights reserved.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
